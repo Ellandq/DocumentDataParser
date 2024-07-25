@@ -11,6 +11,7 @@ namespace DocumentDataParser.Controllers
     public class FileTransferController(IDataParser _dataParserService) : ControllerBase
     {
         [HttpPost("upload")]
+        [Consumes("multipart/form-data")]
         public async Task<IActionResult> UploadFile(IFormFile file)
         {
             if (file == null || file.Length == 0)
