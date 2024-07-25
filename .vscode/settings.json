@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/f8afbd58-8382-4161-ab8b-2d18691266d7/resourceGroups/TestResourceGroupForAppTesting/providers/Microsoft.Web/sites/DocumentDataParser",
+    "appService.deploySubpath": "DocumentDataParser"
+}
