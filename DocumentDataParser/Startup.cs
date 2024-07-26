@@ -13,6 +13,7 @@ namespace DocumentDataParser
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddApplicationInsightsTelemetry();
 
             services.AddSingleton<DocumentIntelligenceClient>(provider =>
             {
@@ -26,8 +27,10 @@ namespace DocumentDataParser
             services.AddScoped<IDataParser, DataParserService>();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Logger> logger)
         {
+            Logger.InitializeLogger(logger);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
