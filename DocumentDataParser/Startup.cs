@@ -39,8 +39,9 @@ namespace DocumentDataParser
             services.AddScoped<IDataParser, DataParserService>();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
+            Logger.Configure(logger);
 
             if (env.IsDevelopment())
             {
