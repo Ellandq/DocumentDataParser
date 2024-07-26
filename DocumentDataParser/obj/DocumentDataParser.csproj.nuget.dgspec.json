@@ -43,6 +43,18 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Azure.AI.DocumentIntelligence": {
+              "target": "Package",
+              "version": "[1.0.0-beta.2, )"
+            },
+            "Azure.AI.FormRecognizer": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            },
+            "Azure.AI.Vision.ImageAnalysis": {
+              "target": "Package",
+              "version": "[1.0.0-beta.3, )"
+            },
             "Azure.Core": {
               "target": "Package",
               "version": "[1.41.0, )"

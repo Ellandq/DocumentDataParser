@@ -1,9 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "fndrRuAbtS54qJDMBRj0wVspNf7KDSogm5nefzn+HwxyJZKewHcRFwUkrHR61HwMAj/EeXcNsmd8gyTvxQi7Ng==",
+  "dgSpecHash": "4d6CvKcQ5Wn4Zbr4JIWSTCafPG5kF/nejP8l1cImnLYY4AT+pirj0ZuSg/+lj2DiPCh7vNHTFj8Y1oqUiLf46Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\wasima2\\Desktop\\Projekty\\DocumentDataExtractor\\DocumentDataParser\\DocumentDataParser\\DocumentDataParser.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\wasima2\\.nuget\\packages\\azure.ai.documentintelligence\\1.0.0-beta.2\\azure.ai.documentintelligence.1.0.0-beta.2.nupkg.sha512",
+    "C:\\Users\\wasima2\\.nuget\\packages\\azure.ai.formrecognizer\\4.1.0\\azure.ai.formrecognizer.4.1.0.nupkg.sha512",
+    "C:\\Users\\wasima2\\.nuget\\packages\\azure.ai.vision.imageanalysis\\1.0.0-beta.3\\azure.ai.vision.imageanalysis.1.0.0-beta.3.nupkg.sha512",
     "C:\\Users\\wasima2\\.nuget\\packages\\azure.core\\1.41.0\\azure.core.1.41.0.nupkg.sha512",
     "C:\\Users\\wasima2\\.nuget\\packages\\azure.identity\\1.12.0\\azure.identity.1.12.0.nupkg.sha512",
     "C:\\Users\\wasima2\\.nuget\\packages\\azure.storage.blobs\\12.21.1\\azure.storage.blobs.12.21.1.nupkg.sha512",

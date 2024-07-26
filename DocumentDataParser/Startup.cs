@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using DocumentDataParser.Services;
+using Azure;
+using Azure.AI.DocumentIntelligence;
 
 namespace DocumentDataParser
 {
@@ -11,6 +13,16 @@ namespace DocumentDataParser
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddSingleton<DocumentIntelligenceClient>(provider =>
+            {
+                var _configuration = provider.GetRequiredService<IConfiguration>();
+                var key = _configuration["KEY_DOCUMENT_INTELLIGENCE"];
+                var endpoint = _configuration["ENDPOINT_DOCUMENT_INTELLIGENCE"];
+                var credential = new AzureKeyCredential(key);
+                return new DocumentIntelligenceClient(new Uri(endpoint), credential);
+            });
+
             services.AddScoped<IDataParser, DataParserService>();
         }
 
