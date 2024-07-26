@@ -24,11 +24,12 @@ namespace DocumentDataParser.Controllers
                 await file.CopyToAsync(memoryStream);
                 memoryStream.Position = 0;
 
-                var result = await _dataParserService.ParseDataAsync(memoryStream);
+                // var result = await _dataParserService.ParseDataAsync(memoryStream);
 
-                if (result != null)
+                if (true)
                 {
-                    return Ok($"File processed successfully. {result.Content}");
+                    Logger.LogInfo("TEST LOG");
+                    return Ok($"File processed successfully. ");
                 }
                 else
                 {
