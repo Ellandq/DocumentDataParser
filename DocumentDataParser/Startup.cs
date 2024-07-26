@@ -23,6 +23,10 @@ namespace DocumentDataParser
                 options.RetainedFileCountLimit = 5;
             });
 
+            services.AddSingleton<ILogger>(provider => 
+                provider.GetRequiredService<ILogger<Startup>>()
+            );
+
             services.AddSingleton<DocumentIntelligenceClient>(provider =>
             {
                 var _configuration = provider.GetRequiredService<IConfiguration>();

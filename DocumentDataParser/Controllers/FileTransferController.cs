@@ -28,7 +28,7 @@ namespace DocumentDataParser.Controllers
 
                 if (true)
                 {
-                    Logger.LogInfo("TEST LOG");
+                    Logger.LogInfo("TEST");
                     return Ok($"File processed successfully. ");
                 }
                 else

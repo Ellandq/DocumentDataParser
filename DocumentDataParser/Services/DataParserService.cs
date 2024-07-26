@@ -21,7 +21,7 @@ namespace DocumentDataParser.Services
 
         private async Task<AnalyzeResult> CheckConnectionAsync(MemoryStream stream)
         {
-            Logger.LogInfo($"Trying to connect to {documentIntelligenceClient}");
+            Logger.LogInfo($"Trying to connect {documentIntelligenceClient}");
             try
             {
                 var content = new AnalyzeDocumentContent(){
@@ -35,6 +35,7 @@ namespace DocumentDataParser.Services
             }
             catch (Exception ex)
             {
+                Logger.LogError($"Failed: {ex.Message}");
                 return null;
             }
         }
