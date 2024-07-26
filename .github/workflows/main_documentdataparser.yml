@@ -50,7 +50,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'DocumentDataParser'
-          slot-name: 'Production'
+          app-name: 'DocumentDataExtractorApp'
+          slot-name: 'production'
           package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_037A9DAC870448B0AA43703249E67BD7 }}
