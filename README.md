@@ -4,8 +4,7 @@ Kudu: https://documentdataparser.scm.azurewebsites.net/DebugConsole/?shell=power
 // Muszę poprawić bo to jest do mojego prywatnego resource na azurze
 
 Curl:
-
-curl --location 'https://documentdataparser.azurewebsites.net/api/FileTransfer/upload' \
+curl --location 'https://documentdataextractorapp.azurewebsites.net/api/FileTransfer/upload' \
 --header 'Cookie: ARRAffinity=79e06db539acb57119e709978d2cf1da299e8341753d6f6345007fcab3f69bc5; ARRAffinitySameSite=79e06db539acb57119e709978d2cf1da299e8341753d6f6345007fcab3f69bc5; ARRAffinity=79e06db539acb57119e709978d2cf1da299e8341753d6f6345007fcab3f69bc5; ARRAffinitySameSite=79e06db539acb57119e709978d2cf1da299e8341753d6f6345007fcab3f69bc5' \
---form 'file=@"YOUR FILE PATH HERE"'
+--form 'YOUR FILE PATH HERE"'
 
