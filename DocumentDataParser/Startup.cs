@@ -5,6 +5,7 @@ using Microsoft.Extensions.Hosting;
 using DocumentDataParser.Services;
 using Azure;
 using Azure.AI.DocumentIntelligence;
+using Microsoft.Extensions.Logging.AzureAppServices;
 
 namespace DocumentDataParser
 {
@@ -14,6 +15,13 @@ namespace DocumentDataParser
         {
             services.AddControllers();
             services.AddApplicationInsightsTelemetry();
+            
+            services.Configure<AzureFileLoggerOptions>(options =>
+            {
+                options.FileName = "azure-diagnostics-";
+                options.FileSizeLimit = 50 * 1024;
+                options.RetainedFileCountLimit = 5;
+            });
 
             services.AddSingleton<DocumentIntelligenceClient>(provider =>
             {
@@ -27,9 +35,8 @@ namespace DocumentDataParser
             services.AddScoped<IDataParser, DataParserService>();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Logger> logger)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            Logger.InitializeLogger(logger);
 
             if (env.IsDevelopment())
             {
