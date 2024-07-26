@@ -24,9 +24,9 @@ namespace DocumentDataParser.Controllers
                 await file.CopyToAsync(memoryStream);
                 memoryStream.Position = 0;
 
-                // var result = await _dataParserService.ParseDataAsync(memoryStream);
+                var result = await _dataParserService.ParseDataAsync(memoryStream);
 
-                if (true)
+                if (result != null)
                 {
                     Logger.LogInfo("TEST");
                     return Ok($"File processed successfully. ");
