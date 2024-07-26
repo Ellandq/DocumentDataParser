@@ -1,10 +1,13 @@
 using System.IO;
 using System.Threading.Tasks;
+using Azure;
+using Azure.Core;
+using Azure.AI.DocumentIntelligence;
 using DocumentDataParser.Services;
 
 namespace DocumentDataParser.Services
 {
-    public class DataParserService : IDataParser
+    public class DataParserService(DocumentIntelligenceClient documentIntelligenceClient) : IDataParser
     {
         public async Task<bool> ParseDataAsync(Stream fileStream)
         {
@@ -13,7 +16,23 @@ namespace DocumentDataParser.Services
                 var fileContent = await reader.ReadToEndAsync();
             }
 
-            return true; 
+            return CheckConnectionAsync() == null; 
+        }
+
+        private async Task<BinaryData> CheckConnectionAsync()
+        {
+            try
+            {
+                using RequestContent content = null;
+                Operation<BinaryData> operation = documentIntelligenceClient.AnalyzeDocument(WaitUntil.Completed, "<modelId>", content);
+                BinaryData responseData = operation.Value;
+
+                return responseData; 
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
     }
 }
