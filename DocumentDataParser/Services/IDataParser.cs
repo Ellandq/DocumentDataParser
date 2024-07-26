@@ -1,10 +1,11 @@
 using System.IO;
 using System.Threading.Tasks;
+using Azure.AI.DocumentIntelligence;
 
 namespace DocumentDataParser.Services
 {
     public interface IDataParser
     {
-        Task<bool> ParseDataAsync(Stream fileStream);
+        Task<AnalyzeResult> ParseDataAsync(MemoryStream fileStream);
     }
 }

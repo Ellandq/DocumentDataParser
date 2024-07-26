@@ -9,23 +9,26 @@ namespace DocumentDataParser.Services
 {
     public class DataParserService(DocumentIntelligenceClient documentIntelligenceClient) : IDataParser
     {
-        public async Task<bool> ParseDataAsync(Stream fileStream)
+        public async Task<AnalyzeResult> ParseDataAsync(MemoryStream memoryStream)
         {
-            using (var reader = new StreamReader(fileStream))
+            using (var reader = new StreamReader(memoryStream))
             {
                 var fileContent = await reader.ReadToEndAsync();
             }
-
-            return CheckConnectionAsync() == null; 
+            var result = await CheckConnectionAsync(memoryStream);
+            return result; 
         }
 
-        private async Task<BinaryData> CheckConnectionAsync()
+        private async Task<AnalyzeResult> CheckConnectionAsync(MemoryStream stream)
         {
             try
             {
-                using RequestContent content = BinaryData.FromString("");
-                Operation<BinaryData> operation = documentIntelligenceClient.AnalyzeDocument(WaitUntil.Completed, "prebuilt-invoice", content);
-                BinaryData responseData = operation.Value;
+                var content = new AnalyzeDocumentContent(){
+                    Base64Source = new BinaryData(stream.ToArray())
+                };
+
+                Operation<AnalyzeResult> operation = await documentIntelligenceClient.AnalyzeDocumentAsync(WaitUntil.Completed, "prebuilt-layout", content);
+                var responseData = operation.Value;
 
                 return responseData; 
             }
