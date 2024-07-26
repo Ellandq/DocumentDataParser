@@ -23,8 +23,8 @@ namespace DocumentDataParser.Services
         {
             try
             {
-                using RequestContent content = null;
-                Operation<BinaryData> operation = documentIntelligenceClient.AnalyzeDocument(WaitUntil.Completed, "<modelId>", content);
+                using RequestContent content = BinaryData.FromString("");
+                Operation<BinaryData> operation = documentIntelligenceClient.AnalyzeDocument(WaitUntil.Completed, "prebuilt-invoice", content);
                 BinaryData responseData = operation.Value;
 
                 return responseData; 
