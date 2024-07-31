@@ -14,6 +14,11 @@ namespace DocumentDataParser
         // Testing
         private string key;
         private string endpoint;
+        private IConfiguration _configuration;
+
+        public Startup(IConfiguration configuration){
+            _configuration = configuration;
+        }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -31,23 +36,23 @@ namespace DocumentDataParser
                 provider.GetRequiredService<ILogger<Startup>>()
             );
 
-            try{
-                services.AddSingleton<DocumentIntelligenceClient>(provider =>
-                {
-                    var _configuration = provider.GetRequiredService<IConfiguration>();
+            // try{
+            //     services.AddSingleton<DocumentIntelligenceClient>(provider =>
+            //     {
+            //         var _configuration = provider.GetRequiredService<IConfiguration>();
 
-                    // key = Environment.GetEnvironmentVariable(KeyCode);
-                    // endpoint = Environment.GetEnvironmentVariable(EndpointCode);
-                    key = _configuration[$"APPSETTINGS_{KeyCode}"];
-                    endpoint = _configuration[$"APPSETTINGS_{EndpointCode}"];
-                    // key = System.Configuration.ConfigurationManager.AppSettings[KeyCode];
-                    // endpoint = System.Configuration.ConfigurationManager.AppSettings[EndpointCode];
-                    var credential = new AzureKeyCredential(key);
-                    return new DocumentIntelligenceClient(new Uri(endpoint), credential);
-                });
-            }catch(Exception e){
-                Console.WriteLine($"Error: {e.Message}");
-            }
+            //         // key = Environment.GetEnvironmentVariable(KeyCode);
+            //         // endpoint = Environment.GetEnvironmentVariable(EndpointCode);
+            //         key = _configuration[$"APPSETTINGS_{KeyCode}"];
+            //         endpoint = _configuration[$"APPSETTINGS_{EndpointCode}"];
+            //         // key = System.Configuration.ConfigurationManager.AppSettings[KeyCode];
+            //         // endpoint = System.Configuration.ConfigurationManager.AppSettings[EndpointCode];
+            //         var credential = new AzureKeyCredential(key);
+            //         return new DocumentIntelligenceClient(new Uri(endpoint), credential);
+            //     });
+            // }catch(Exception e){
+            //     Console.WriteLine($"Error: {e.Message}");
+            // }
 
             services.AddScoped<IDataParser, DataParserService>();
         }
@@ -58,8 +63,10 @@ namespace DocumentDataParser
 
 
             try{
-                Logger.LogInfo($"KEY: {key}");
-                Logger.LogInfo($"ENDPOINT: {endpoint}");
+                var keyStr = $"APPSETTINGS_{KeyCode}";
+                var endpointStr = $"APPSETTINGS_{EndpointCode}";
+                Logger.LogInfo($"KEY: {_configuration[keyStr]}");
+                Logger.LogInfo($"ENDPOINT: {_configuration[endpointStr]}");
             }catch (Exception e){
                 Logger.LogError($"ERROR: {e.Message}");
             }
