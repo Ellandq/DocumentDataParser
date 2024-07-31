@@ -28,11 +28,12 @@ namespace DocumentDataParser.Controllers
 
                 if (result != null)
                 {
-                    Logger.LogInfo("TEST");
+                    Logger.LogInfo("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
                     return Ok($"File processed successfully. ");
                 }
                 else
                 {
+                    Logger.LogInfo("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                     return StatusCode(500, "Error processing file.");
                 }
             }
