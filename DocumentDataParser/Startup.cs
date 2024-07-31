@@ -32,7 +32,7 @@ namespace DocumentDataParser
             );
 
             try{
-                services.AddSingleton<DocumentIntelligenceClient>(provider =>
+                _ = services.AddSingleton<DocumentIntelligenceClient>(provider =>
                 {
                     var _configuration = provider.GetRequiredService<IConfiguration>();
                     var key = _configuration[Prefix + KeyCode];
@@ -50,7 +50,6 @@ namespace DocumentDataParser
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             Logger.Configure(logger);
-            Logger.LogInfo("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 
             if (env.IsDevelopment())
             {

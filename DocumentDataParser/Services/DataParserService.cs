@@ -21,13 +21,14 @@ namespace DocumentDataParser.Services
 
         private async Task<AnalyzeResult> CheckConnectionAsync(MemoryStream stream)
         {
-            Logger.LogInfo($"Trying to connect {documentIntelligenceClient == null}");
             try
             {
                 var content = new AnalyzeDocumentContent(){
                     Base64Source = new BinaryData(stream.ToArray())
                 };
-
+                Console.WriteLine("Calling AnalyzeDocumentAsync with method: AnalyzeDocumentAsync and parameters: 'prebuilt-layout'");
+                Console.WriteLine(documentIntelligenceClient);
+        
                 Operation<AnalyzeResult> operation = await documentIntelligenceClient.AnalyzeDocumentAsync(WaitUntil.Completed, "prebuilt-layout", content);
                 var responseData = operation.Value;
 
@@ -35,6 +36,7 @@ namespace DocumentDataParser.Services
             }
             catch (Exception ex)
             {
+                Console.WriteLine("UWU OWO AHAHHAHAHAHAHAH" + ex.Message);
                 Logger.LogError($"Failed: {ex.Message}");
                 return null;
             }
