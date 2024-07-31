@@ -1,4 +1,4 @@
-
+using System.Configuration;
 using DocumentDataParser.Services;
 using Azure;
 using Azure.AI.DocumentIntelligence;
@@ -36,10 +36,10 @@ namespace DocumentDataParser
                 {
                     var _configuration = provider.GetRequiredService<IConfiguration>();
 
-                    key = Environment.GetEnvironmentVariable(KeyCode);
-                    endpoint = Environment.GetEnvironmentVariable(EndpointCode);
-                    // key = _configuration[KeyCode];
-                    // endpoint = _configuration[EndpointCode];
+                    // key = Environment.GetEnvironmentVariable(KeyCode);
+                    // endpoint = Environment.GetEnvironmentVariable(EndpointCode);
+                    key = System.Configuration.ConfigurationManager.AppSettings[KeyCode];
+                    endpoint = System.Configuration.ConfigurationManager.AppSettings[EndpointCode];
                     var credential = new AzureKeyCredential(key);
                     return new DocumentIntelligenceClient(new Uri(endpoint), credential);
                 });
