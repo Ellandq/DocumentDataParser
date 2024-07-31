@@ -14,6 +14,7 @@ namespace DocumentDataParser
         private const string Prefix = "APPSETTINGS_";
         private const string KeyCode = "KEY_DOCUMENT_INTELLIGENCE";
         private const string EndpointCode = "ENDPOINT_DOCUMENT_INTELLIGENCE";
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -45,6 +46,7 @@ namespace DocumentDataParser
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             Logger.Configure(logger);
+            Logger.LogInfo("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 
             if (env.IsDevelopment())
             {
