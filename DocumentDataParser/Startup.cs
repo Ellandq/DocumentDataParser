@@ -1,8 +1,4 @@
-using System;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+
 using DocumentDataParser.Services;
 using Azure;
 using Azure.AI.DocumentIntelligence;
@@ -39,10 +35,11 @@ namespace DocumentDataParser
                 services.AddSingleton<DocumentIntelligenceClient>(provider =>
                 {
                     var _configuration = provider.GetRequiredService<IConfiguration>();
-                    // key = Environment.GetEnvironmentVariable(KeyCode);
-                    // endpoint = Environment.GetEnvironmentVariable(EndpointCode);
-                    key = _configuration[KeyCode];
-                    endpoint = _configuration[EndpointCode];
+
+                    key = Environment.GetEnvironmentVariable(KeyCode);
+                    endpoint = Environment.GetEnvironmentVariable(EndpointCode);
+                    // key = _configuration[KeyCode];
+                    // endpoint = _configuration[EndpointCode];
                     var credential = new AzureKeyCredential(key);
                     return new DocumentIntelligenceClient(new Uri(endpoint), credential);
                 });
