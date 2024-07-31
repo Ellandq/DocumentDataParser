@@ -44,7 +44,7 @@ namespace DocumentDataParser
                     return new DocumentIntelligenceClient(new Uri(endpoint), credential);
                 });
             }catch(Exception e){
-                Logger.LogError($"ERROR: {e.Message}");
+                Console.WriteLine($"Error: {e.Message}");
             }
 
             services.AddScoped<IDataParser, DataParserService>();
