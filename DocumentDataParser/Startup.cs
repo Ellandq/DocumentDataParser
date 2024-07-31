@@ -7,7 +7,6 @@ namespace DocumentDataParser
 {
     public class Startup
     {
-        private const string Prefix = "APPSETTINGS_";
         private const string KeyCode = "KEY_DOCUMENT_INTELLIGENCE";
         private const string EndpointCode = "ENDPOINT_DOCUMENT_INTELLIGENCE";
 
@@ -26,11 +25,29 @@ namespace DocumentDataParser
             services.AddSingleton<DocumentIntelligenceClient>(provider =>
             {
                 var configuration = provider.GetRequiredService<IConfiguration>();
-                var key = configuration[Prefix + KeyCode];
-                var endpoint = configuration[Prefix + EndpointCode];
+                var _logger = provider.GetRequiredService<ILogger<Startup>>();
+                var key = configuration[KeyCode];
+                var endpoint = configuration[EndpointCode];
+
+                // Log the retrieved variables (excluding sensitive information)
+                _logger.LogInformation("Retrieved configuration values:");
+                _logger.LogInformation($"Endpoint: {endpoint}"); // Log endpoint, but be cautious with credentials
+
+                // Check for null or empty values
+                if (string.IsNullOrEmpty(key))
+                {
+                    _logger.LogError("Key configuration value is missing or empty.");
+                    throw new ArgumentException("Key configuration value is missing or empty.");
+                }
+
+                if (string.IsNullOrEmpty(endpoint))
+                {
+                    _logger.LogError("Endpoint configuration value is missing or empty.");
+                    throw new ArgumentException("Endpoint configuration value is missing or empty.");
+                }
+
                 var credential = new AzureKeyCredential(key);
-                return new DocumentIntelligenceClient(new Uri(endpoint), credential);
-            });
+                return new DocumentIntelligenceClient(new Uri(endpoint), credential);            });
 
             services.AddScoped<IDataParser, DataParserService>();
         }
