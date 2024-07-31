@@ -8,8 +8,8 @@ namespace DocumentDataParser
 {
     public class Startup
     {   
-        private const string KeyCode = "APPSETTING_KEY_DOCUMENT_INTELLIGENCE";
-        private const string EndpointCode = "APPSETTING_ENDPOINT_DOCUMENT_INTELLIGENCE";
+        private const string KeyCode = "KEY_DOCUMENT_INTELLIGENCE";
+        private const string EndpointCode = "ENDPOINT_DOCUMENT_INTELLIGENCE";
 
         // Testing
         private string key;
@@ -38,8 +38,8 @@ namespace DocumentDataParser
 
                     // key = Environment.GetEnvironmentVariable(KeyCode);
                     // endpoint = Environment.GetEnvironmentVariable(EndpointCode);
-                    key = _configuration[KeyCode];
-                    endpoint = _configuration[EndpointCode];
+                    key = _configuration[$"APPSETTINGS_{KeyCode}"];
+                    endpoint = _configuration[$"APPSETTINGS_{EndpointCode}"];
                     // key = System.Configuration.ConfigurationManager.AppSettings[KeyCode];
                     // endpoint = System.Configuration.ConfigurationManager.AppSettings[EndpointCode];
                     var credential = new AzureKeyCredential(key);

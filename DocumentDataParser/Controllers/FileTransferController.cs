@@ -14,7 +14,6 @@ namespace DocumentDataParser.Controllers
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> UploadFile(IFormFile file)
         {
-            return Ok();
             if (file == null || file.Length == 0)
             {
                 return BadRequest("No file uploaded.");
