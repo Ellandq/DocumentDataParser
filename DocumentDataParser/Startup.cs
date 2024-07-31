@@ -39,8 +39,10 @@ namespace DocumentDataParser
                 services.AddSingleton<DocumentIntelligenceClient>(provider =>
                 {
                     var _configuration = provider.GetRequiredService<IConfiguration>();
-                    key = Environment.GetEnvironmentVariable(KeyCode);
-                    endpoint = Environment.GetEnvironmentVariable(EndpointCode);
+                    // key = Environment.GetEnvironmentVariable(KeyCode);
+                    // endpoint = Environment.GetEnvironmentVariable(EndpointCode);
+                    key = _configuration[KeyCode];
+                    endpoint = _configuration[EndpointCode];
                     var credential = new AzureKeyCredential(key);
                     return new DocumentIntelligenceClient(new Uri(endpoint), credential);
                 });
