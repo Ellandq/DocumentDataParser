@@ -1,4 +1,7 @@
-using System.Configuration;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using DocumentDataParser.Services;
 using Azure;
 using Azure.AI.DocumentIntelligence;
@@ -7,19 +10,10 @@ using Microsoft.Extensions.Logging.AzureAppServices;
 namespace DocumentDataParser
 {
     public class Startup
-    {   
+    {
+        private const string Prefix = "APPSETTINGS_";
         private const string KeyCode = "KEY_DOCUMENT_INTELLIGENCE";
         private const string EndpointCode = "ENDPOINT_DOCUMENT_INTELLIGENCE";
-
-        // Testing
-        private string key;
-        private string endpoint;
-        private IConfiguration _configuration;
-
-        public Startup(IConfiguration configuration){
-            _configuration = configuration;
-        }
-
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -36,23 +30,14 @@ namespace DocumentDataParser
                 provider.GetRequiredService<ILogger<Startup>>()
             );
 
-            // try{
-            //     services.AddSingleton<DocumentIntelligenceClient>(provider =>
-            //     {
-            //         var _configuration = provider.GetRequiredService<IConfiguration>();
-
-            //         // key = Environment.GetEnvironmentVariable(KeyCode);
-            //         // endpoint = Environment.GetEnvironmentVariable(EndpointCode);
-            //         key = _configuration[$"APPSETTINGS_{KeyCode}"];
-            //         endpoint = _configuration[$"APPSETTINGS_{EndpointCode}"];
-            //         // key = System.Configuration.ConfigurationManager.AppSettings[KeyCode];
-            //         // endpoint = System.Configuration.ConfigurationManager.AppSettings[EndpointCode];
-            //         var credential = new AzureKeyCredential(key);
-            //         return new DocumentIntelligenceClient(new Uri(endpoint), credential);
-            //     });
-            // }catch(Exception e){
-            //     Console.WriteLine($"Error: {e.Message}");
-            // }
+            services.AddSingleton<DocumentIntelligenceClient>(provider =>
+            {
+                var _configuration = provider.GetRequiredService<IConfiguration>();
+                var key = _configuration[Prefix + KeyCode];
+                var endpoint = _configuration[Prefix + EndpointCode];
+                var credential = new AzureKeyCredential(key);
+                return new DocumentIntelligenceClient(new Uri(endpoint), credential);
+            });
 
             services.AddScoped<IDataParser, DataParserService>();
         }
@@ -60,16 +45,6 @@ namespace DocumentDataParser
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             Logger.Configure(logger);
-
-
-            try{
-                var keyStr = $"APPSETTINGS_{KeyCode}";
-                var endpointStr = $"APPSETTINGS_{EndpointCode}";
-                Logger.LogInfo($"KEY: {_configuration[keyStr]}");
-                Logger.LogInfo($"ENDPOINT: {_configuration[endpointStr]}");
-            }catch (Exception e){
-                Logger.LogError($"ERROR: {e.Message}");
-            }
 
             if (env.IsDevelopment())
             {
