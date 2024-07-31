@@ -47,7 +47,7 @@ namespace DocumentDataParser.Controllers
                     else
                     {
                         _logger.LogError("Error processing file.");
-                        return StatusCode(500, "Error processing file.");
+                        return StatusCode(500, "Error processing file. Wierd huh?");
                     }
                 }
             }

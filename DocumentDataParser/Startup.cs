@@ -15,7 +15,7 @@ namespace DocumentDataParser
         {
             services.AddControllers();
             services.AddApplicationInsightsTelemetry();
-            
+
             services.Configure<AzureFileLoggerOptions>(options =>
             {
                 options.FileName = "azure-diagnostics-";
