@@ -45,6 +45,7 @@ namespace DocumentDataParser
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             Logger.Configure(logger);
+            
 
             try{
                 Logger.LogInfo($"KEY: {key}");
