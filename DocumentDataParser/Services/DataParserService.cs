@@ -1,40 +1,86 @@
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using Azure;
-using Azure.Core;
 using Azure.AI.DocumentIntelligence;
-using DocumentDataParser.Services;
+using Microsoft.Extensions.Logging;
 
 namespace DocumentDataParser.Services
 {
-    public class DataParserService(DocumentIntelligenceClient documentIntelligenceClient) : IDataParser
+    public class DataParserService : IDataParser
     {
+        private readonly DocumentIntelligenceClient _documentIntelligenceClient;
+        private readonly ILogger<DataParserService> _logger;
+
+        // Constructor injection for DocumentIntelligenceClient and ILogger
+        public DataParserService(DocumentIntelligenceClient documentIntelligenceClient, ILogger<DataParserService> logger)
+        {
+            _documentIntelligenceClient = documentIntelligenceClient;
+            _logger = logger;
+        }
+
         public async Task<AnalyzeResult> ParseDataAsync(MemoryStream memoryStream)
         {
-            using (var reader = new StreamReader(memoryStream))
+            _logger.LogInformation("Started parsing data.");
+
+            if (memoryStream == null || memoryStream.Length == 0)
             {
-                var fileContent = await reader.ReadToEndAsync();
+                _logger.LogWarning("Received empty or null MemoryStream.");
+                return null;
             }
-            var result = await CheckConnectionAsync(memoryStream);
-            return result; 
+
+            try
+            {
+                using (var reader = new StreamReader(memoryStream))
+                {
+                    var fileContent = await reader.ReadToEndAsync();
+                    _logger.LogInformation("Read file content successfully.");
+                }
+
+                memoryStream.Position = 0;
+
+                var result = await CheckConnectionAsync(memoryStream);
+                _logger.LogInformation("Data parsing completed.");
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while parsing data.");
+                return null;
+            }
         }
 
         private async Task<AnalyzeResult> CheckConnectionAsync(MemoryStream stream)
         {
             try
             {
-                var content = new AnalyzeDocumentContent(){
+                _logger.LogInformation("Checking connection to Document Intelligence API.");
+
+                var content = new AnalyzeDocumentContent()
+                {
                     Base64Source = new BinaryData(stream.ToArray())
                 };
-        
-                Operation<AnalyzeResult> operation = await documentIntelligenceClient.AnalyzeDocumentAsync(WaitUntil.Completed, "prebuilt-layout", content);
+
+                Operation<AnalyzeResult> operation = await _documentIntelligenceClient.AnalyzeDocumentAsync(
+                    WaitUntil.Completed, "prebuilt-layout", content);
+
                 var responseData = operation.Value;
-                if (responseData == null) Logger.LogError($"Failed The return object is null");
-                return responseData; 
+
+                if (responseData == null)
+                {
+                    _logger.LogError("AnalyzeDocumentAsync returned null result.");
+                }
+                else
+                {
+                    _logger.LogInformation("AnalyzeDocumentAsync returned a valid result.");
+                }
+
+                return responseData;
             }
             catch (Exception ex)
             {
-                Logger.LogError($"Failed: {ex.Message}");
+                _logger.LogError(ex, "An error occurred while calling AnalyzeDocumentAsync.");
                 return null;
             }
         }

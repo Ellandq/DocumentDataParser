@@ -1,10 +1,6 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using DocumentDataParser.Services;
-using Azure;
 using Azure.AI.DocumentIntelligence;
+using Azure;
+using DocumentDataParser.Services;
 using Microsoft.Extensions.Logging.AzureAppServices;
 
 namespace DocumentDataParser
@@ -27,29 +23,21 @@ namespace DocumentDataParser
                 options.RetainedFileCountLimit = 5;
             });
 
-            services.AddSingleton<ILogger>(provider => 
-                provider.GetRequiredService<ILogger<Startup>>()
-            );
-
-            try{
-                _ = services.AddSingleton<DocumentIntelligenceClient>(provider =>
-                {
-                    var _configuration = provider.GetRequiredService<IConfiguration>();
-                    var key = _configuration[Prefix + KeyCode];
-                    var endpoint = _configuration[Prefix + EndpointCode];
-                    var credential = new AzureKeyCredential(key);
-                    return new DocumentIntelligenceClient(new Uri(endpoint), credential);
-                });
-            }catch (Exception e){
-                Console.WriteLine(e.Message);
-            }
+            services.AddSingleton<DocumentIntelligenceClient>(provider =>
+            {
+                var configuration = provider.GetRequiredService<IConfiguration>();
+                var key = configuration[Prefix + KeyCode];
+                var endpoint = configuration[Prefix + EndpointCode];
+                var credential = new AzureKeyCredential(key);
+                return new DocumentIntelligenceClient(new Uri(endpoint), credential);
+            });
 
             services.AddScoped<IDataParser, DataParserService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
-            Logger.Configure(logger);
+            logger.LogInformation("Configuring the HTTP request pipeline.");
 
             if (env.IsDevelopment())
             {
