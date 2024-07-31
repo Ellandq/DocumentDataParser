@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DocumentDataParser")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5f69192a3c43f71b004cea0605ca7e10a73a776e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+98e5e1ea3ada9864f15ac44ce50461b27d882284")]
 [assembly: System.Reflection.AssemblyProductAttribute("DocumentDataParser")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DocumentDataParser")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

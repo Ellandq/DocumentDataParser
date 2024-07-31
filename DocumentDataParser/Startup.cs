@@ -11,6 +11,9 @@ namespace DocumentDataParser
 {
     public class Startup
     {
+        private string key;
+        private string endpoint;
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -30,8 +33,8 @@ namespace DocumentDataParser
             services.AddSingleton<DocumentIntelligenceClient>(provider =>
             {
                 var _configuration = provider.GetRequiredService<IConfiguration>();
-                var key = _configuration["KEY_DOCUMENT_INTELLIGENCE"];
-                var endpoint = _configuration["ENDPOINT_DOCUMENT_INTELLIGENCE"];
+                key = _configuration["KEY_DOCUMENT_INTELLIGENCE"];
+                endpoint = _configuration["ENDPOINT_DOCUMENT_INTELLIGENCE"];
                 var credential = new AzureKeyCredential(key);
                 return new DocumentIntelligenceClient(new Uri(endpoint), credential);
             });
@@ -42,6 +45,13 @@ namespace DocumentDataParser
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             Logger.Configure(logger);
+
+            try{
+                Logger.LogInfo($"KEY: {key}");
+                Logger.LogInfo($"ENDPOINT: {endpoint}");
+            }catch (Exception e){
+                Logger.LogError($"ERROR: {e.Message}");
+            }
 
             if (env.IsDevelopment())
             {
