@@ -31,14 +31,18 @@ namespace DocumentDataParser
                 provider.GetRequiredService<ILogger<Startup>>()
             );
 
-            services.AddSingleton<DocumentIntelligenceClient>(provider =>
-            {
-                var _configuration = provider.GetRequiredService<IConfiguration>();
-                var key = _configuration[Prefix + KeyCode];
-                var endpoint = _configuration[Prefix + EndpointCode];
-                var credential = new AzureKeyCredential(key);
-                return new DocumentIntelligenceClient(new Uri(endpoint), credential);
-            });
+            try{
+                services.AddSingleton<DocumentIntelligenceClient>(provider =>
+                {
+                    var _configuration = provider.GetRequiredService<IConfiguration>();
+                    var key = _configuration[Prefix + KeyCode];
+                    var endpoint = _configuration[Prefix + EndpointCode];
+                    var credential = new AzureKeyCredential(key);
+                    return new DocumentIntelligenceClient(new Uri(endpoint), credential);
+                });
+            }catch (Exception e){
+                Console.WriteLine(e.Message);
+            }
 
             services.AddScoped<IDataParser, DataParserService>();
         }
