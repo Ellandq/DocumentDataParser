@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +11,11 @@ using Microsoft.Extensions.Logging.AzureAppServices;
 namespace DocumentDataParser
 {
     public class Startup
-    {
+    {   
+        private const string KeyCode = "KEY_DOCUMENT_INTELLIGENCE";
+        private const string EndpointCode = "ENDPOINT_DOCUMENT_INTELLIGENCE";
+
+        // Testing
         private string key;
         private string endpoint;
 
@@ -30,14 +35,18 @@ namespace DocumentDataParser
                 provider.GetRequiredService<ILogger<Startup>>()
             );
 
-            services.AddSingleton<DocumentIntelligenceClient>(provider =>
-            {
-                var _configuration = provider.GetRequiredService<IConfiguration>();
-                key = _configuration["KEY_DOCUMENT_INTELLIGENCE"];
-                endpoint = _configuration["ENDPOINT_DOCUMENT_INTELLIGENCE"];
-                var credential = new AzureKeyCredential(key);
-                return new DocumentIntelligenceClient(new Uri(endpoint), credential);
-            });
+            try{
+                services.AddSingleton<DocumentIntelligenceClient>(provider =>
+                {
+                    var _configuration = provider.GetRequiredService<IConfiguration>();
+                    key = Environment.GetEnvironmentVariable(KeyCode);
+                    endpoint = Environment.GetEnvironmentVariable(EndpointCode);
+                    var credential = new AzureKeyCredential(key);
+                    return new DocumentIntelligenceClient(new Uri(endpoint), credential);
+                });
+            }catch(Exception e){
+                Logger.LogError($"ERROR: {e.Message}");
+            }
 
             services.AddScoped<IDataParser, DataParserService>();
         }
@@ -45,7 +54,7 @@ namespace DocumentDataParser
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             Logger.Configure(logger);
-            
+
 
             try{
                 Logger.LogInfo($"KEY: {key}");
