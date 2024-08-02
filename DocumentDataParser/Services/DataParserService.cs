@@ -46,9 +46,8 @@ namespace DocumentDataParser.Services
                 Operation<AnalyzeResult> operation = await _documentIntelligenceClient.AnalyzeDocumentAsync(
                     WaitUntil.Completed, 
                     "prebuilt-read", 
-                    new AnalyzeDocumentContent{
-                        UrlSource = new Uri("https://raw.githubusercontent.com/Azure-Samples/cognitive-services-REST-api-samples/master/curl/form-recognizer/sample-layout.pdf")
-                    });
+                    content
+                );
 
                 var responseData = operation.Value;
 
