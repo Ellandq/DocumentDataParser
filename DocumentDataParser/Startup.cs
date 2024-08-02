@@ -7,6 +7,8 @@ namespace DocumentDataParser
 {
     public class Startup
     {
+
+        private const string Prefix = "APPSETTINGS_";
         private const string KeyCode = "KEY_DOCUMENT_INTELLIGENCE";
         private const string EndpointCode = "ENDPOINT_DOCUMENT_INTELLIGENCE";
 
@@ -29,11 +31,9 @@ namespace DocumentDataParser
                 var key = configuration[KeyCode];
                 var endpoint = configuration[EndpointCode];
 
-                // Log the retrieved variables (excluding sensitive information)
                 _logger.LogInformation("Retrieved configuration values:");
-                _logger.LogInformation($"Endpoint: {endpoint}"); // Log endpoint, but be cautious with credentials
+                _logger.LogInformation($"Endpoint: {endpoint}");
 
-                // Check for null or empty values
                 if (string.IsNullOrEmpty(key))
                 {
                     _logger.LogError("Key configuration value is missing or empty.");
