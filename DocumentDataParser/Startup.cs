@@ -28,8 +28,8 @@ namespace DocumentDataParser
             {
                 var configuration = provider.GetRequiredService<IConfiguration>();
                 var _logger = provider.GetRequiredService<ILogger<Startup>>();
-                var key = configuration[KeyCode];
-                var endpoint = configuration[EndpointCode];
+                var key = configuration[Prefix + KeyCode];
+                var endpoint = configuration[Prefix +  EndpointCode];
 
                 _logger.LogInformation("Retrieved configuration values:");
                 _logger.LogInformation($"Endpoint: {endpoint}");
