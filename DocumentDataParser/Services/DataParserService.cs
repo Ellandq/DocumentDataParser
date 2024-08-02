@@ -44,7 +44,7 @@ namespace DocumentDataParser.Services
                 _logger.LogInformation("Checking connection to Document Intelligence API.");
 
                 Operation<AnalyzeResult> operation = await _documentIntelligenceClient.AnalyzeDocumentAsync(
-                    WaitUntil.Completed, "prebuilt-layout", content);
+                    WaitUntil.Completed, "prebuilt-read", content);
 
                 var responseData = operation.Value;
 

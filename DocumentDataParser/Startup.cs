@@ -48,7 +48,8 @@ namespace DocumentDataParser
                 }
 
                 var credential = new AzureKeyCredential(key);
-                return new DocumentIntelligenceClient(new Uri(endpoint), credential);            });
+                return new DocumentIntelligenceClient(new Uri(endpoint), credential);            
+                });
 
             services.AddScoped<IDataParser, DataParserService>();
         }
