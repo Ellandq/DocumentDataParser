@@ -44,7 +44,11 @@ namespace DocumentDataParser.Services
                 _logger.LogInformation("Checking connection to Document Intelligence API.");
 
                 Operation<AnalyzeResult> operation = await _documentIntelligenceClient.AnalyzeDocumentAsync(
-                    WaitUntil.Completed, "prebuilt-read", content);
+                    WaitUntil.Completed, 
+                    "prebuilt-read", 
+                    new AnalyzeDocumentContent{
+                        UrlSource = new Uri("https://raw.githubusercontent.com/Azure-Samples/cognitive-services-REST-api-samples/master/curl/form-recognizer/sample-layout.pdf")
+                    });
 
                 var responseData = operation.Value;
 
