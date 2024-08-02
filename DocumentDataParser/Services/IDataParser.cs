@@ -6,6 +6,6 @@ namespace DocumentDataParser.Services
 {
     public interface IDataParser
     {
-        Task<AnalyzeResult> ParseDataAsync(MemoryStream fileStream);
+        Task<AnalyzeResult> ParseDataAsync(AnalyzeDocumentContent content);
     }
 }

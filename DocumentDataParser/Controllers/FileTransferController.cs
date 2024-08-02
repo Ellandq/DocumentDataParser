@@ -1,4 +1,6 @@
+using Azure.AI.DocumentIntelligence;
 using DocumentDataParser.Services;
+using DocumentDataParser.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -30,25 +32,34 @@ namespace DocumentDataParser.Controllers
                 return BadRequest("No file uploaded.");
             }
 
+            AnalyzeDocumentContent content;
+
+            try{
+                content = await StreamParser.GetAnalyzeDocumentContentFromFile(file);
+
+                if (content == null){
+                    _logger.LogError("Error while converting file.");
+                    return StatusCode(500, "Error while converting file.");
+                }
+            }catch (Exception e){
+                _logger.LogError(e, "Error while converting file.");
+                return StatusCode(500, $"Error while converting file: {e.Message}");
+            }
+            
             try
             {
-                using (var memoryStream = new MemoryStream())
+
+                var result = await _dataParserService.ParseDataAsync(content);
+
+                if (result != null)
                 {
-                    await file.CopyToAsync(memoryStream);
-                    memoryStream.Position = 0;
-
-                    var result = await _dataParserService.ParseDataAsync(memoryStream);
-
-                    if (result != null)
-                    {
-                        _logger.LogInformation("File processed successfully.");
-                        return Ok("File processed successfully.");
-                    }
-                    else
-                    {
-                        _logger.LogError("Error processing file.");
-                        return StatusCode(500, "Error processing file. Wierd huh?");
-                    }
+                    _logger.LogInformation("File processed successfully.");
+                    return Ok("File processed successfully.");
+                }
+                else
+                {
+                    _logger.LogError("Error processing file.");
+                    return StatusCode(500, "Error processing file. Wierd huh?");
                 }
             }
             catch (Exception ex)

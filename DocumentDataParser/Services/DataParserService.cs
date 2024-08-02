@@ -12,34 +12,20 @@ namespace DocumentDataParser.Services
         private readonly DocumentIntelligenceClient _documentIntelligenceClient;
         private readonly ILogger<DataParserService> _logger;
 
-        // Constructor injection for DocumentIntelligenceClient and ILogger
         public DataParserService(DocumentIntelligenceClient documentIntelligenceClient, ILogger<DataParserService> logger)
         {
             _documentIntelligenceClient = documentIntelligenceClient;
             _logger = logger;
         }
 
-        public async Task<AnalyzeResult> ParseDataAsync(MemoryStream memoryStream)
+        public async Task<AnalyzeResult> ParseDataAsync(AnalyzeDocumentContent content)
         {
             _logger.LogInformation("Started parsing data.");
 
-            if (memoryStream == null || memoryStream.Length == 0)
-            {
-                _logger.LogWarning("Received empty or null MemoryStream.");
-                return null;
-            }
-
             try
             {
-                using (var reader = new StreamReader(memoryStream))
-                {
-                    var fileContent = await reader.ReadToEndAsync();
-                    _logger.LogInformation("Read file content successfully.");
-                }
 
-                memoryStream.Position = 0;
-
-                var result = await CheckConnectionAsync(memoryStream);
+                var result = await CheckConnectionAsync(content);
                 _logger.LogInformation("Data parsing completed.");
 
                 return result;
@@ -51,16 +37,11 @@ namespace DocumentDataParser.Services
             }
         }
 
-        private async Task<AnalyzeResult> CheckConnectionAsync(MemoryStream stream)
+        private async Task<AnalyzeResult> CheckConnectionAsync(AnalyzeDocumentContent content)
         {
             try
             {
                 _logger.LogInformation("Checking connection to Document Intelligence API.");
-
-                var content = new AnalyzeDocumentContent()
-                {
-                    Base64Source = new BinaryData(stream.ToArray())
-                };
 
                 Operation<AnalyzeResult> operation = await _documentIntelligenceClient.AnalyzeDocumentAsync(
                     WaitUntil.Completed, "prebuilt-layout", content);
