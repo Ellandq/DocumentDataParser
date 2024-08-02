@@ -7,15 +7,14 @@ namespace DocumentDataParser.Utils
     {
         public static async Task<AnalyzeDocumentContent> GetAnalyzeDocumentContentFromFile(IFormFile file){
 
-            using (var memoryStream = new MemoryStream()){
-                await file.CopyToAsync(memoryStream);
-                memoryStream.Position = 0;
-                
-                return new AnalyzeDocumentContent()
-                {
-                    Base64Source = new BinaryData(memoryStream.ToArray())
-                };
-            }
+            var memoryStream = new MemoryStream();
+            await file.CopyToAsync(memoryStream);
+            memoryStream.Position = 0;
+
+            return new AnalyzeDocumentContent()
+            {
+                Base64Source = new BinaryData(memoryStream.ToArray())
+            };
         }
     }
 }
