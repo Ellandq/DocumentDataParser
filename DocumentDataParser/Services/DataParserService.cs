@@ -19,7 +19,7 @@ namespace DocumentDataParser.Services
         }
 
         public async Task<AnalyzeResult> ParseDataAsync(AnalyzeDocumentContent content)
-        {
+        { 
             _logger.LogInformation("Started parsing data.");
 
             try

@@ -7,7 +7,6 @@ namespace DocumentDataParser
 {
     public class Startup
     {
-
         private const string Prefix = "APPSETTINGS_";
         private const string KeyCode = "KEY_DOCUMENT_INTELLIGENCE";
         private const string EndpointCode = "ENDPOINT_DOCUMENT_INTELLIGENCE";
