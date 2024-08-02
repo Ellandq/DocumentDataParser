@@ -32,7 +32,8 @@ namespace DocumentDataParser
                 var endpoint = configuration[Prefix +  EndpointCode];
 
                 _logger.LogInformation("Retrieved configuration values:");
-                _logger.LogInformation($"Endpoint: {endpoint}");
+                _logger.LogError($"Endpoint: {endpoint}");
+                _logger.LogError($"Endpoint: {key}");
 
                 if (string.IsNullOrEmpty(key))
                 {
