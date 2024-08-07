@@ -9,7 +9,7 @@ namespace DocumentDataParser
 {
     public class Startup
     {
-        private const string Prefix = "APPSETTINGS_";
+        private const string Prefix = "APPSETTING_";
         private const string KeyCode = "KEY_DOCUMENT_INTELLIGENCE";
         private const string EndpointCode = "ENDPOINT_DOCUMENT_INTELLIGENCE";
 
@@ -35,7 +35,6 @@ namespace DocumentDataParser
                 _logger.LogInformation("Retrieved configuration values:");
                 _logger.LogError($"Endpoint: {endpoint}");
                 _logger.LogError($"KEY: {key}");
-                LogEnvironmentVariables(_logger);
 
                 if (string.IsNullOrEmpty(key))
                 {
@@ -79,24 +78,6 @@ namespace DocumentDataParser
             {
                 endpoints.MapControllers();
             });
-        }
-
-        private void LogEnvironmentVariables(ILogger logger)
-        {
-            var environmentVariables = Environment.GetEnvironmentVariables();
-            var envVar = "";
-            foreach (DictionaryEntry variable in environmentVariables)
-            {                
-                envVar += $"Environment Variable: {variable.Key}\n";
-            }
-
-            try{
-                logger.LogError($"KEY 2: {Environment.GetEnvironmentVariable("APPSETTINGS_KEY_DOCUMENT_INTELLIGENCE")}");
-                logger.LogError($"ENDPOINT 2: {Environment.GetEnvironmentVariable("APPSETTINGS_ENDPOINT_DOCUMENT_INTELLIGENCE")}");
-            }catch (Exception e){
-                logger.LogError("Haha you looser.");
-            }
-            logger.LogError(envVar);
         }
     }
 }
