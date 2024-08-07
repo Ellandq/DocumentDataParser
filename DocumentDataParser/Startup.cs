@@ -3,6 +3,7 @@ using Azure;
 using DocumentDataParser.Services;
 using Microsoft.Extensions.Logging.AzureAppServices;
 using System.Collections;
+using System.Security.Cryptography;
 
 namespace DocumentDataParser
 {
@@ -87,6 +88,13 @@ namespace DocumentDataParser
             foreach (DictionaryEntry variable in environmentVariables)
             {                
                 envVar += $"Environment Variable: {variable.Key}\n";
+            }
+
+            try{
+                logger.LogError($"KEY 2: {Environment.GetEnvironmentVariable("APPSETTINGS_KEY_DOCUMENT_INTELLIGENCE")}");
+                logger.LogError($"ENDPOINT 2: {Environment.GetEnvironmentVariable("APPSETTINGS_ENDPOINT_DOCUMENT_INTELLIGENCE")}");
+            }catch (Exception e){
+                logger.LogError("Haha you looser.");
             }
             logger.LogError(envVar);
         }
