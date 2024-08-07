@@ -2,6 +2,7 @@ using Azure.AI.DocumentIntelligence;
 using Azure;
 using DocumentDataParser.Services;
 using Microsoft.Extensions.Logging.AzureAppServices;
+using System.Collections;
 
 namespace DocumentDataParser
 {
@@ -83,7 +84,7 @@ namespace DocumentDataParser
         {
             var environmentVariables = Environment.GetEnvironmentVariables();
             var envVar = "";
-            foreach (KeyValuePair<string, string> variable in environmentVariables)
+            foreach (DictionaryEntry variable in environmentVariables)
             {                
                 envVar += $"Environment Variable: {variable.Key}\n";
             }
