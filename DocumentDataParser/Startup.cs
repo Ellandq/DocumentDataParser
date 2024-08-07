@@ -33,6 +33,7 @@ namespace DocumentDataParser
                 _logger.LogInformation("Retrieved configuration values:");
                 _logger.LogError($"Endpoint: {endpoint}");
                 _logger.LogError($"KEY: {key}");
+                LogEnvironmentVariables(_logger);
 
                 if (string.IsNullOrEmpty(key))
                 {
@@ -76,6 +77,17 @@ namespace DocumentDataParser
             {
                 endpoints.MapControllers();
             });
+        }
+
+        private void LogEnvironmentVariables(ILogger logger)
+        {
+            var environmentVariables = Environment.GetEnvironmentVariables();
+            var envVar = "";
+            foreach (KeyValuePair<string, string> variable in environmentVariables)
+            {                
+                envVar += $"Environment Variable: {variable.Key}\n";
+            }
+            logger.LogError(envVar);
         }
     }
 }
