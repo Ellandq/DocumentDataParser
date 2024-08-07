@@ -4,8 +4,13 @@ using DocumentDataParser.Model;
 using  Newtonsoft.Json;
 
 namespace DocumentDataParser.Services{
-    public class DataExtractionService(ILogger _logger) : IDataExtraction{
+    public class DataExtractionService : IDataExtraction{
 
+        private readonly ILogger _logger;
+        
+        public DataExtractionService(ILogger logger){
+            _logger = logger;
+        }
         
        public async Task<ReturnObject> ExtractDataToObject(ReturnObject returnObject, AnalyzeResult analyzeResult)
         {
@@ -18,7 +23,7 @@ namespace DocumentDataParser.Services{
 
             string jsonString = JsonConvert.SerializeObject(analyzeResult, Formatting.Indented);
             _logger.LogError(jsonString);
-            
+
             return returnObject;
         }
 
