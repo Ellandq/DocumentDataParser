@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "8cR/ryz1zVwL6qBsNg3olfOCE1oloMUwThXcoS0l/ism6ckmg8rStkJ/UTbv8KCuS6xqFAGYZOnSg9M1CtFerw==",
+  "dgSpecHash": "hBzpdEvGQMmfqDql87C3UDOK0OdlmfdGySmDggKXxczX4Dj8XeIQrfulw33k9y9x6uvC7TKZP0bCzY2XzYw0/A==",
   "success": true,
   "projectFilePath": "C:\\Users\\wasima2\\Desktop\\Projekty\\DocumentDataExtractor\\DocumentDataParser\\DocumentDataParser\\DocumentDataParser.csproj",
   "expectedPackageFiles": [
@@ -52,6 +52,7 @@
     "C:\\Users\\wasima2\\.nuget\\packages\\microsoft.netcore.platforms\\1.0.1\\microsoft.netcore.platforms.1.0.1.nupkg.sha512",
     "C:\\Users\\wasima2\\.nuget\\packages\\microsoft.netcore.targets\\1.0.1\\microsoft.netcore.targets.1.0.1.nupkg.sha512",
     "C:\\Users\\wasima2\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "C:\\Users\\wasima2\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\wasima2\\.nuget\\packages\\system.buffers\\4.5.0\\system.buffers.4.5.0.nupkg.sha512",
     "C:\\Users\\wasima2\\.nuget\\packages\\system.clientmodel\\1.0.0\\system.clientmodel.1.0.0.nupkg.sha512",
     "C:\\Users\\wasima2\\.nuget\\packages\\system.collections\\4.0.11\\system.collections.4.0.11.nupkg.sha512",

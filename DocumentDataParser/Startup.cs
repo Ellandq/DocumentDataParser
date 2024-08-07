@@ -53,6 +53,7 @@ namespace DocumentDataParser
                 });
 
             services.AddScoped<IDataParser, DataParserService>();
+            services.AddScoped<IDataExtraction, DataExtractionService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
