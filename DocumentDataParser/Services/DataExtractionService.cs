@@ -1,14 +1,15 @@
 using System.Text;
 using Azure.AI.DocumentIntelligence;
 using DocumentDataParser.Model;
-using  Newtonsoft.Json;
+using Newtonsoft.Json;
 
 namespace DocumentDataParser.Services{
-    public class DataExtractionService : IDataExtraction{
+    public class DataExtractionService : IDataExtraction
+    {
 
-        private readonly ILogger _logger;
-        
-        public DataExtractionService(ILogger logger){
+        private readonly ILogger<DataExtractionService> _logger;
+
+        public DataExtractionService(ILogger<DataExtractionService> logger){
             _logger = logger;
         }
         
