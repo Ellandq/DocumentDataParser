@@ -50,7 +50,7 @@ namespace DocumentDataParser.Services{
 
             foreach (var kvp in dictionary)
             {
-                result.AppendLine($"Section: {kvp.Key}, Key: {kvp.Value.Key}, Value: {kvp.Value.Value}");
+                result.AppendLine($"Section: {kvp.Key}, Value: {kvp.Value.Value.Content}");
             }
 
             _logger.LogError(result.ToString());
