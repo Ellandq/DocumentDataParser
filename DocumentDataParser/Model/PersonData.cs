@@ -18,6 +18,11 @@ namespace DocumentDataParser.Model{
 
         public AddressObject Address;
 
+
+        public PersonData(bool isBuyer){
+            
+        }
+
         
     }
 }
