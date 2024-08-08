@@ -18,8 +18,7 @@ namespace DocumentDataParser.Services
 
 
         private const string ModelID = "prebuilt-layout";
-        private const string V = "features=keyValuePairs";
-        public readonly ImmutableList<string> QueryFields = ["features=keyValuePairs"];
+        public readonly ImmutableList<DocumentAnalysisFeature> Features = [DocumentAnalysisFeature.KeyValuePairs];
 
         public DataParserService(DocumentIntelligenceClient documentIntelligenceClient, 
             IDataExtraction dataExtractionService, ILogger<DataParserService> logger)
@@ -38,7 +37,7 @@ namespace DocumentDataParser.Services
                     WaitUntil.Completed, 
                     ModelID, 
                     content,
-                    queryFields: QueryFields
+                    features: Features
                 );
             } catch (Exception e){
                 _logger.LogError($"There was an issue while connecting to DocumentIntelligence: {e.Message}");
