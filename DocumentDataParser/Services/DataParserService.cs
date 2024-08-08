@@ -17,7 +17,7 @@ namespace DocumentDataParser.Services
 
 
         private const string ModelID = "prebuilt-layout";
-        private const string ModelWithFeatures = "?features=keyValuePairs";
+        private const string Features = "?features=keyValuePairs";
 
         public DataParserService(DocumentIntelligenceClient documentIntelligenceClient, 
             IDataExtraction dataExtractionService, ILogger<DataParserService> logger)
@@ -33,7 +33,7 @@ namespace DocumentDataParser.Services
             try {
                 operation = await _documentIntelligenceClient.AnalyzeDocumentAsync(
                     WaitUntil.Completed, 
-                    ModelID + ModelWithFeatures, 
+                    ModelID, 
                     content
                 );
             } catch (Exception e){
