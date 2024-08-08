@@ -15,6 +15,10 @@ namespace DocumentDataParser.Services
         private readonly ILogger<DataParserService> _logger;
         private readonly IDataExtraction _dataExtraction;
 
+
+        private const string ModelID = "prebuilt-layout";
+        private const string ModelWithFeatures = "?features=keyValuePairs";
+
         public DataParserService(DocumentIntelligenceClient documentIntelligenceClient, 
             IDataExtraction dataExtractionService, ILogger<DataParserService> logger)
         {
@@ -29,7 +33,7 @@ namespace DocumentDataParser.Services
             try {
                 operation = await _documentIntelligenceClient.AnalyzeDocumentAsync(
                     WaitUntil.Completed, 
-                    "prebuilt-document", 
+                    ModelID + ModelWithFeatures, 
                     content
                 );
             } catch (Exception e){
