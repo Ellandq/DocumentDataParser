@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Immutable;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -17,7 +18,8 @@ namespace DocumentDataParser.Services
 
 
         private const string ModelID = "prebuilt-layout";
-        private const string Features = "?features=keyValuePairs";
+        private const string V = "features=keyValuePairs";
+        public readonly ImmutableList<string> QueryFields = ["features=keyValuePairs"];
 
         public DataParserService(DocumentIntelligenceClient documentIntelligenceClient, 
             IDataExtraction dataExtractionService, ILogger<DataParserService> logger)
@@ -29,12 +31,14 @@ namespace DocumentDataParser.Services
 
         public async Task<ReturnObject> ParseDataAsync(AnalyzeDocumentContent content)
         { 
+
             Operation<AnalyzeResult> operation;
             try {
                 operation = await _documentIntelligenceClient.AnalyzeDocumentAsync(
                     WaitUntil.Completed, 
                     ModelID, 
-                    content
+                    content,
+                    queryFields: QueryFields
                 );
             } catch (Exception e){
                 _logger.LogError($"There was an issue while connecting to DocumentIntelligence: {e.Message}");
