@@ -20,14 +20,28 @@ namespace DocumentDataParser.Services{
                 throw new ArgumentNullException(nameof(analyzeResult), "AnalyzeResult cannot be null.");
             }
 
-            var sb = new StringBuilder();
-
             string jsonString = JsonConvert.SerializeObject(analyzeResult, Formatting.Indented);
             _logger.LogError(jsonString);
+
+
+
+            foreach (var paraghraph in analyzeResult.Paragraphs)
+            {
+
+            }
+
+
+
 
             return returnObject;
         }
 
+        private enum SectionName{
+            BuyerNames, BuyerSurnames,
+        }
+
 
     }
+
+    
 }

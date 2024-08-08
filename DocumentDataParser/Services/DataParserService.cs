@@ -29,7 +29,7 @@ namespace DocumentDataParser.Services
             try {
                 operation = await _documentIntelligenceClient.AnalyzeDocumentAsync(
                     WaitUntil.Completed, 
-                    "prebuilt-read", 
+                    "prebuilt-document", 
                     content
                 );
             } catch (Exception e){
