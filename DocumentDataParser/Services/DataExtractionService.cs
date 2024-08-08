@@ -25,12 +25,6 @@ namespace DocumentDataParser.Services{
 
 
 
-            foreach (var paraghraph in analyzeResult.Paragraphs)
-            {
-
-            }
-
-
 
 
             return returnObject;
