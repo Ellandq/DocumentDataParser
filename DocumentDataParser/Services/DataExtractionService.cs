@@ -17,6 +17,8 @@ namespace DocumentDataParser.Services{
         
         public async Task<ReturnObject> ExtractDataToObject(ReturnObject returnObject, AnalyzeResult analyzeResult)
         {
+
+            return returnObject;
             if (analyzeResult == null)
             {
                 throw new ArgumentNullException(nameof(analyzeResult), "AnalyzeResult cannot be null.");
