@@ -32,7 +32,7 @@ namespace DocumentDataParser.Utils{
             ),
             new SectionRule(
                 SectionName.BuyerHomeAndApartamentNumber,
-                new List<string> { @"numer( mieszkania)?.*|nr( mieszkania)?.*" },
+                new List<string> { @"numer|nr( mieszkania)?.*|nr( mieszkania)?.*" },
                 new List<SectionName> { SectionName.BuyerAddress }
             ),
             new SectionRule(
@@ -62,10 +62,6 @@ namespace DocumentDataParser.Utils{
                 new List<SectionName>()
             )
         };
-
-
-
-
         public static SectionName GetSectionName(string content, List<SectionName> ignoredSections){
             foreach (var section in SectionRules){
                 var match = GetMatch(section, content);
