@@ -17,8 +17,6 @@ namespace DocumentDataParser.Services{
         
         public async Task<ReturnObject> ExtractDataToObject(ReturnObject returnObject, AnalyzeResult analyzeResult)
         {
-
-            return returnObject;
             if (analyzeResult == null)
             {
                 throw new ArgumentNullException(nameof(analyzeResult), "AnalyzeResult cannot be null.");
@@ -45,6 +43,8 @@ namespace DocumentDataParser.Services{
 
                 dictionary.Add(sectionName, kvp.Value.Content);
             }
+
+            return returnObject;
 
             foreach (var paragraph in analyzeResult.Paragraphs){
                 var sectionName = SectionHandler.GetSectionName(paragraph.Content, ignoredSections);
