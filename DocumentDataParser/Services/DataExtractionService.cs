@@ -28,14 +28,19 @@ namespace DocumentDataParser.Services{
             var ignoredSections = new List<SectionName>();
             var dictionary = new Dictionary<SectionName, string>();
 
+            _logger.LogError("SHOULD STILL WORK");
+
             foreach (var kvp in analyzeResult.KeyValuePairs){
+                _logger.LogError($"ATTEMPT 111111111111111111111 {kvp.Value.Content}");
                 var sectionName = SectionHandler.GetSectionName(kvp.Key.Content, ignoredSections);
+                _logger.LogError($"wooooooooooow {sectionName}");
                 
                 if (sectionName == SectionName.NotFound) continue;
-
+                _logger.LogError($"IM HERE NOW");
                 ignoredSections.Add(sectionName);
 
                 var section = SectionHandler.GetRule(sectionName);
+                _logger.LogError($"RULE {section.Name}");
 
                 if (section.IsPrefered){
                     ignoredSections.AddRange(section.ConnectedSections);
