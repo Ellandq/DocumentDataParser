@@ -68,6 +68,11 @@ namespace DocumentDataParser.Services{
 
             _logger.LogError(result.ToString());
 
+            foreach (var str in ignoredSections)
+            {
+                result.AppendLine($"IgnoredSection: {str}");
+            }
+
             return returnObject;
         }
     }
