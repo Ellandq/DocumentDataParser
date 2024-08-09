@@ -9,6 +9,7 @@ namespace DocumentDataParser.Utils{
     {
         public static readonly List<SectionRule> SectionRules = new List<SectionRule>
         {
+            // BUYER
             new SectionRule(
                 SectionName.BuyerNames,
                 new List<string> { @"imi[eę]|imiona" },
@@ -56,15 +57,62 @@ namespace DocumentDataParser.Utils{
                 new List<string> { @"NIP" },
                 new List<SectionName>()
             ),
+
+            // SELLER
+
+            new SectionRule(
+                SectionName.SellerNames,
+                new List<string> { @"imi[eę]|imiona" },
+                new List<SectionName> { SectionName.SellerNamesAndSurnames }
+            ),
+            new SectionRule(
+                SectionName.SellerSurnames,
+                new List<string> { @"nazwisk[oa]" },
+                new List<SectionName> { SectionName.SellerNamesAndSurnames }
+            ),
+            new SectionRule(
+                SectionName.SellerNamesAndSurnames,
+                new List<string> { @"imi[eę]|imiona", @"nazwisk[oa]" },
+                new List<SectionName> { SectionName.SellerNames, SectionName.SellerSurnames },
+                true
+            ),
+            new SectionRule(
+                SectionName.SellerStreet,
+                new List<string> { @"ulica|ul" },
+                new List<SectionName> { SectionName.SellerAddress }
+            ),
+            new SectionRule(
+                SectionName.SellerHomeAndApartamentNumber,
+                new List<string> { @"numer( mieszkania)?.*|nr( mieszkania)?.*" },
+                new List<SectionName> { SectionName.SellerAddress }
+            ),
+            new SectionRule(
+                SectionName.SellerPostalCode,
+                new List<string> { @"pocztowy|poczta|kod, poczta|kod pocztowy" },
+                new List<SectionName> { SectionName.SellerAddress }
+            ),
+            new SectionRule(
+                SectionName.SellerAddress,
+                new List<string> { @"ulica", @"(numer( mieszkania)?.*|nr( mieszkania)?.*)?", @"pocztowy|poczta|kod, poczta|kod pocztowy" },
+                new List<SectionName> { SectionName.SellerStreet, SectionName.SellerHomeAndApartamentNumber, SectionName.SellerPostalCode },
+                true
+            ),
+            new SectionRule(
+                SectionName.SellerPESEL,
+                new List<string> { @"PESEL" },
+                new List<SectionName>()
+            ),
+            new SectionRule(
+                SectionName.SellerNIP,
+                new List<string> { @"NIP" },
+                new List<SectionName>()
+            ),
             new SectionRule(
                 SectionName.NotFound,
                 new List<string>(),
                 new List<SectionName>()
             )
         };
-
-
-
 
         public static SectionName GetSectionName(string content, List<SectionName> ignoredSections){
             foreach (var section in SectionRules){

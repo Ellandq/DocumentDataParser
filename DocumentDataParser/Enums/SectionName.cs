@@ -8,7 +8,12 @@ namespace DocumentDataParser.Enums{
 
         BuyerPESEL, BuyerNIP,
 
+        // Seller Data
+        SellerNames, SellerSurnames, SellerNamesAndSurnames, 
+        // Address
+        SellerStreet, SellerHomeAndApartamentNumber, SellerPostalCode, SellerAddress, 
 
+        SellerPESEL, SellerNIP,
 
         // Edge cases
         NotFound,
