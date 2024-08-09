@@ -44,8 +44,6 @@ namespace DocumentDataParser.Services{
                 dictionary.Add(sectionName, kvp.Value.Content);
             }
 
-            return returnObject;
-
             foreach (var paragraph in analyzeResult.Paragraphs){
                 var sectionName = SectionHandler.GetSectionName(paragraph.Content, ignoredSections);
                 

@@ -25,27 +25,27 @@ namespace DocumentDataParser.Utils{
                 new List<SectionName> { SectionName.BuyerNames, SectionName.BuyerSurnames },
                 true
             ),
-            new SectionRule(
-                SectionName.BuyerStreet,
-                new List<string> { @"ulica|ul" },
-                new List<SectionName> { SectionName.BuyerAddress }
-            ),
-            new SectionRule(
-                SectionName.BuyerHomeAndApartamentNumber,
-                new List<string> { @"numer|nr( mieszkania)?.*|nr( mieszkania)?.*" },
-                new List<SectionName> { SectionName.BuyerAddress }
-            ),
-            new SectionRule(
-                SectionName.BuyerPostalCode,
-                new List<string> { @"pocztowy|poczta|kod, poczta|kod pocztowy" },
-                new List<SectionName> { SectionName.BuyerAddress }
-            ),
-            new SectionRule(
-                SectionName.BuyerAddress,
-                new List<string> { @"ulica", @"(numer( mieszkania)?.*|nr( mieszkania)?.*)?", @"pocztowy|poczta|kod, poczta|kod pocztowy" },
-                new List<SectionName> { SectionName.BuyerStreet, SectionName.BuyerHomeAndApartamentNumber, SectionName.BuyerPostalCode },
-                true
-            ),
+            // new SectionRule(
+            //     SectionName.BuyerStreet,
+            //     new List<string> { @"ulica|ul" },
+            //     new List<SectionName> { SectionName.BuyerAddress }
+            // ),
+            // new SectionRule(
+            //     SectionName.BuyerHomeAndApartamentNumber,
+            //     new List<string> { @"numer|nr( mieszkania)?.*|nr( mieszkania)?.*" },
+            //     new List<SectionName> { SectionName.BuyerAddress }
+            // ),
+            // new SectionRule(
+            //     SectionName.BuyerPostalCode,
+            //     new List<string> { @"pocztowy|poczta|kod, poczta|kod pocztowy" },
+            //     new List<SectionName> { SectionName.BuyerAddress }
+            // ),
+            // new SectionRule(
+            //     SectionName.BuyerAddress,
+            //     new List<string> { @"ulica", @"(numer( mieszkania)?.*|nr( mieszkania)?.*)?", @"pocztowy|poczta|kod, poczta|kod pocztowy" },
+            //     new List<SectionName> { SectionName.BuyerStreet, SectionName.BuyerHomeAndApartamentNumber, SectionName.BuyerPostalCode },
+            //     true
+            // ),
             new SectionRule(
                 SectionName.BuyerPESEL,
                 new List<string> { @"PESEL" },
