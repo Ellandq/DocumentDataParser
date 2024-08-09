@@ -2,6 +2,7 @@
 using System.Net.Http.Headers;
 
 namespace DocumentDataParser.Model{
+    [Serializable]
     public class ContractedItemObject{
         public DataObject Brand {get;set;}
 

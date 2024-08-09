@@ -1,6 +1,7 @@
 
 namespace DocumentDataParser.Model
 {
+    [Serializable]
     public class ReturnObject{
 
         public PersonData Buyer {get;set;}

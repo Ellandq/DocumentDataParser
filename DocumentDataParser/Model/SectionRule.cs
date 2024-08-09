@@ -2,6 +2,7 @@ using System.ComponentModel.Design;
 using DocumentDataParser.Enums;
 
 namespace DocumentDataParser.Model{
+    [Serializable]
 
     public class SectionRule{
 

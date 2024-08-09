@@ -1,6 +1,9 @@
+using System.Runtime.Serialization;
 using System.Security.Cryptography.Xml;
 
 namespace DocumentDataParser{
+    [Serializable]
+    
     public class AddressObject{
         public DataObject Street {get;set;}
         public DataObject City {get;set;}
@@ -10,6 +13,8 @@ namespace DocumentDataParser{
         public DataObject PostalCode {get;set;}
 
         public DataObject ApartmentNumber {get;set;}
+
+        
       
         public AddressObject(){
             Street =new DataObject();

@@ -3,7 +3,9 @@
 using Microsoft.AspNetCore.Mvc;
 
 namespace DocumentDataParser.Model{
+    [Serializable]
     public class PersonData{
+        
 
         // Personal Info
         

@@ -5,6 +5,7 @@ using DocumentDataParser.Model;
 using DocumentDataParser.Utils;
 using Newtonsoft.Json;
 
+
 namespace DocumentDataParser.Services{
     public class DataExtractionService : IDataExtraction
     {
@@ -17,10 +18,16 @@ namespace DocumentDataParser.Services{
         
        public async Task<ReturnObject> ExtractDataToObject(ReturnObject returnObject, AnalyzeResult analyzeResult)
         {
+            string jsonTest = JsonConvert.SerializeObject(returnObject);
+            _logger.LogError("Tescik returnobjekcik skrrrrrr :{json}", jsonTest);
+
+
+            return returnObject;
             if (analyzeResult == null)
             {
                 throw new ArgumentNullException(nameof(analyzeResult), "AnalyzeResult cannot be null.");
             }
+
 
             string jsonString = JsonConvert.SerializeObject(analyzeResult, Formatting.Indented);
             _logger.LogError(jsonString);
@@ -57,6 +64,7 @@ namespace DocumentDataParser.Services{
                     ignoredSections.AddRange(section.ConnectedSections);
                 }
 
+                
                 dictionary.Add(sectionName, paragraph.Content);
             }
 
@@ -70,6 +78,9 @@ namespace DocumentDataParser.Services{
             _logger.LogError(result.ToString());
 
             return returnObject;
+
+
+
         }
     }
 
