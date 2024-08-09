@@ -12,7 +12,7 @@ namespace DocumentDataParser.Model{
         public List<DataObject> Surnames {get;set;}
 
         public DataObject PESEL {get;set;}
-
+      
         public DataObject ID_Type {get;set;}
 
         public DataObject ID_Number {get;set;}
@@ -34,6 +34,5 @@ namespace DocumentDataParser.Model{
                 Regon = new DataObject();
                 Address = new AddressObject();
         }
-        
     }
 }

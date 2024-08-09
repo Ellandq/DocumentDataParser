@@ -1,14 +1,14 @@
 
+using DocumentDataParser.Enums;
+
 namespace DocumentDataParser.Model{
     public class DataObject{
+      public SectionName Section;
+      public string Value;
 
-        public string Value {get;set;}
-
-
-        public float Certainty {get;set;}
-
-
-        public DataObject()
+      public float Certainty;
+      
+      public DataObject()
         {
         }
 
@@ -17,7 +17,5 @@ namespace DocumentDataParser.Model{
             Value = value;
             Certainty = certainty;
         }
-
-        
     }
 }
