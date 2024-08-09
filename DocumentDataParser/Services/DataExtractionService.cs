@@ -26,7 +26,7 @@ namespace DocumentDataParser.Services{
             _logger.LogError(jsonString);
 
             var ignoredSections = new List<SectionName>();
-            var dictionary = new Dictionary<SectionName, DocumentKeyValuePair>();
+            var dictionary = new Dictionary<SectionName, string>();
 
             foreach (var kvp in analyzeResult.KeyValuePairs){
                 var sectionName = SectionHandler.GetSectionName(kvp.Key.Content, ignoredSections);
@@ -41,20 +41,30 @@ namespace DocumentDataParser.Services{
                     ignoredSections.AddRange(section.ConnectedSections);
                 }
 
-                dictionary.Add(sectionName, kvp);
-
-
+                dictionary.Add(sectionName, kvp.Value.Content);
             }
 
             foreach (var paragraph in analyzeResult.Paragraphs){
-                DocumentParagraph doc;
+                var sectionName = SectionHandler.GetSectionName(paragraph.Content, ignoredSections);
+                
+                if (sectionName == SectionName.NotFound) continue;
+
+                ignoredSections.Add(sectionName);
+
+                var section = SectionHandler.GetRule(sectionName);
+
+                if (section.IsPrefered){
+                    ignoredSections.AddRange(section.ConnectedSections);
+                }
+
+                dictionary.Add(sectionName, paragraph.Content);
             }
 
             StringBuilder result = new StringBuilder();
 
             foreach (var kvp in dictionary)
             {
-                result.AppendLine($"Section: {kvp.Key}, Value: {kvp.Value.Value.Content}");
+                result.AppendLine($"Section: {kvp.Key}, Value: {kvp.Value}");
             }
 
             _logger.LogError(result.ToString());

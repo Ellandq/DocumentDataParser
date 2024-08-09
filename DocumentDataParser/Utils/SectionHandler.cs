@@ -81,7 +81,21 @@ namespace DocumentDataParser.Utils{
             return SectionRules.Find(section => section.Name == name)
             ?? GetRule(SectionName.NotFound);
         }
+
+        public static string TrimSection(string section, SectionName name){
+            var rules = GetRule(name);
+            var result = section;
+
+            foreach(var keyWord in rules.KeyWords){
+                var regex = new Regex(keyWord, RegexOptions.IgnoreCase);
+                result = regex.Replace(result, "");
+            }
+
+            return result.Trim();
+        }
+
     } 
 
+    
 
 }
