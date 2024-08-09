@@ -116,6 +116,7 @@ namespace DocumentDataParser.Utils{
         };
 
         public static SectionName GetSectionName(string content, List<SectionName> ignoredSections){
+            
             foreach (var section in SectionRules){
                 var match = GetMatch(section, content);
                 if (match.Name == SectionName.NotFound || ignoredSections.Contains(match.Name)) continue;
@@ -140,6 +141,7 @@ namespace DocumentDataParser.Utils{
                             }
                         }
                     }
+                    return section;
                 }
             }
 
