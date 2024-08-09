@@ -7,91 +7,65 @@ namespace DocumentDataParser.Utils{
 
     public static class SectionHandler
     {
-        public static readonly List<SectionRule> SectionRules = [
+        public static readonly List<SectionRule> SectionRules = new List<SectionRule>
+        {
             new SectionRule(
                 SectionName.BuyerNames,
-                [
-                    @"imi[eę]|imiona"
-                ],
-                [
-                    SectionName.BuyerNamesAndSurnames
-                ]
+                new List<string> { @"imi[eę]|imiona" },
+                new List<SectionName> { SectionName.BuyerNamesAndSurnames }
             ),
             new SectionRule(
                 SectionName.BuyerSurnames,
-                [
-                    @"nazwisk[oa]",
-                ],
-                [
-                    SectionName.BuyerNamesAndSurnames
-                ]
+                new List<string> { @"nazwisk[oa]" },
+                new List<SectionName> { SectionName.BuyerNamesAndSurnames }
             ),
             new SectionRule(
                 SectionName.BuyerNamesAndSurnames,
-                [
-                    @"imi[eę]|imiona", @"nazwisk[oa]",
-                ],
-                [
-                    SectionName.BuyerNames, SectionName.BuyerSurnames
-                ],
+                new List<string> { @"imi[eę]|imiona", @"nazwisk[oa]" },
+                new List<SectionName> { SectionName.BuyerNames, SectionName.BuyerSurnames },
                 true
             ),
             new SectionRule(
-                SectionName.BuyerAddress,
-                [
-                    @"ulica|adres",
-                ],
-                [
-                    SectionName.BuyerStreet, SectionName.BuyerHomeAndApartamentNumber, SectionName.BuyerPostalCode
-                ]
-            ),
-            new SectionRule(
                 SectionName.BuyerStreet,
-                [
-                    @"ulica",
-                ],
-                [
-                    SectionName.BuyerAddress
-                ]
+                new List<string> { @"ulica|ul" },
+                new List<SectionName> { SectionName.BuyerAddress }
             ),
             new SectionRule(
                 SectionName.BuyerHomeAndApartamentNumber,
-                [
-                    @"numer[ ]?domu|numer[ ]?mieszkania",
-                ],
-                [
-                    SectionName.BuyerAddress
-                ]
+                new List<string> { @"numer( mieszkania)?.*|nr( mieszkania)?.*" },
+                new List<SectionName> { SectionName.BuyerAddress }
             ),
             new SectionRule(
                 SectionName.BuyerPostalCode,
-                [
-                    @"kod[ ]?pocztowy",
-                ],
-                [
-                    SectionName.BuyerAddress
-                ]
+                new List<string> { @"pocztowy|poczta|kod, poczta|kod pocztowy" },
+                new List<SectionName> { SectionName.BuyerAddress }
+            ),
+            new SectionRule(
+                SectionName.BuyerAddress,
+                new List<string> { @"ulica", @"(numer( mieszkania)?.*|nr( mieszkania)?.*)?", @"pocztowy|poczta|kod, poczta|kod pocztowy" },
+                new List<SectionName> { SectionName.BuyerStreet, SectionName.BuyerHomeAndApartamentNumber, SectionName.BuyerPostalCode },
+                true
             ),
             new SectionRule(
                 SectionName.BuyerPESEL,
-                [
-                    @"PESEL",
-                ],
-                []
+                new List<string> { @"PESEL" },
+                new List<SectionName>()
             ),
             new SectionRule(
                 SectionName.BuyerNIP,
-                [
-                    @"NIP",
-                ],
-                []
+                new List<string> { @"NIP" },
+                new List<SectionName>()
             ),
             new SectionRule(
                 SectionName.NotFound,
-                [],
-                []
-            ),
-        ];
+                new List<string>(),
+                new List<SectionName>()
+            )
+        };
+
+
+
+
         public static SectionName GetSectionName(string content, List<SectionName> ignoredSections){
             foreach (var section in SectionRules){
                 var match = GetMatch(section, content);

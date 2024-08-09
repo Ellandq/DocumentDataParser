@@ -15,7 +15,7 @@ namespace DocumentDataParser.Services{
             _logger = logger;
         }
         
-        public async Task<ReturnObject> ExtractDataToObject(ReturnObject returnObject, AnalyzeResult analyzeResult)
+       public async Task<ReturnObject> ExtractDataToObject(ReturnObject returnObject, AnalyzeResult analyzeResult)
         {
             if (analyzeResult == null)
             {
@@ -47,7 +47,7 @@ namespace DocumentDataParser.Services{
             foreach (var paragraph in analyzeResult.Paragraphs){
                 var sectionName = SectionHandler.GetSectionName(paragraph.Content, ignoredSections);
                 
-                if (sectionName == SectionName.NotFound) continue;  
+                if (sectionName == SectionName.NotFound) continue;
 
                 ignoredSections.Add(sectionName);
 
@@ -75,3 +75,4 @@ namespace DocumentDataParser.Services{
 
     
 }
+
