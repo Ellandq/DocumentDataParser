@@ -7,22 +7,32 @@ namespace DocumentDataParser.Model{
 
         // Personal Info
         
-        public List<DataObject> Names;
-        public List<DataObject> Surnames;
-        public DataObject PESEL;
-        public DataObject ID_Type;
-        public DataObject ID_Number;
-        public DataObject NIP;
+        public List<DataObject> Names {get;set;}
 
-        // Address
+        public List<DataObject> Surnames {get;set;}
 
-        public AddressObject Address;
+        public DataObject PESEL {get;set;}
+      
+        public DataObject ID_Type {get;set;}
 
+        public DataObject ID_Number {get;set;}
 
-        public PersonData(bool isBuyer){
-            
+        public DataObject NIP {get;set;}
+
+        public DataObject Regon {get;set;}
+
+        public AddressObject Address {get;set;}
+
+        public PersonData (  ){
+
+                Names =  new List<DataObject>(); 
+                Surnames =  new List<DataObject>(); 
+                PESEL = new DataObject();
+                ID_Type = new DataObject();
+                ID_Number = new DataObject();
+                NIP = new DataObject();
+                Regon = new DataObject();
+                Address = new AddressObject();
         }
-
-        
     }
 }
