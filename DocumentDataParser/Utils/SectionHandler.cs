@@ -46,9 +46,9 @@ namespace DocumentDataParser.Utils{
 
 
 
-        public static SectionName GetSectionName(DocumentKeyValueElement key, List<SectionName> ignoredSections){
+        public static SectionName GetSectionName(string content, List<SectionName> ignoredSections){
             foreach (var section in SectionRules){
-                var match = GetMatch(section, key.Content);
+                var match = GetMatch(section, content);
                 if (match.Name == SectionName.NotFound || ignoredSections.Contains(match.Name)) continue;
                 return match.Name;
             }

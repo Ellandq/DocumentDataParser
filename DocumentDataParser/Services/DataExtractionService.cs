@@ -29,7 +29,7 @@ namespace DocumentDataParser.Services{
             var dictionary = new Dictionary<SectionName, DocumentKeyValuePair>();
 
             foreach (var kvp in analyzeResult.KeyValuePairs){
-                var sectionName = SectionHandler.GetSectionName(kvp.Key, ignoredSections);
+                var sectionName = SectionHandler.GetSectionName(kvp.Key.Content, ignoredSections);
                 
                 if (sectionName == SectionName.NotFound) continue;
 
@@ -44,6 +44,10 @@ namespace DocumentDataParser.Services{
                 dictionary.Add(sectionName, kvp);
 
 
+            }
+
+            foreach (var paragraph in analyzeResult.Paragraphs){
+                DocumentParagraph doc;
             }
 
             StringBuilder result = new StringBuilder();
